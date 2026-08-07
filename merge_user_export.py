@@ -58,7 +58,11 @@ def main():
         if e.get("src"):
             lines.append(f"> 来源：{e['src']}")
         if e.get("link"):
-            lines.append(f"> 链接：{e['link']}")
+            link = e["link"].strip()
+            if not link.startswith("http"):
+                link = "https://" + link
+            link = re.sub(r"^https?:///+", "https://", link)
+            lines.append(f"> 链接：{link}")
         if e.get("desc"):
             lines.append(f"> {e['desc']}")
         blocks.append("\n".join(lines))
