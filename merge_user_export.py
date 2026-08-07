@@ -22,8 +22,11 @@ def parse_entries(md_text):
             if ln.startswith("> 来源：") or ln.startswith("> 来源:"):
                 src = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
             elif ln.startswith("> 链接：") or ln.startswith("> 链接:") or ln.startswith("> GitHub:") or ln.startswith("> GitHub："):
-                link = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
-                link = re.sub(r"^(https?://)/+", r"\1/", link)
+                # 正则提取冒号后的完整内容(兼容全角/半角),避免 split 吃掉 https:
+                m2 = re.match(r">\s*(?:链接|GitHub)[：:]\s*(.+)", ln)
+                link = m2.group(1).strip() if m2 else ln.split("：", 1)[-1].split(":", 1)[-1].strip()
+                # 清理多余斜杠: https:////xxx -> https://xxx
+                link = re.sub(r"^https?:///+", "https://", link)
             elif ln.startswith(">"):
                 desc = ln[1:].strip()
         entries.append({"date": date, "title": title, "src": src, "link": link, "desc": desc})
