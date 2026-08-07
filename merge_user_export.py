@@ -23,6 +23,7 @@ def parse_entries(md_text):
                 src = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
             elif ln.startswith("> 链接：") or ln.startswith("> 链接:") or ln.startswith("> GitHub:") or ln.startswith("> GitHub："):
                 link = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
+                link = re.sub(r"^(https?://)/+", r"\1/", link)
             elif ln.startswith(">"):
                 desc = ln[1:].strip()
         entries.append({"date": date, "title": title, "src": src, "link": link, "desc": desc})

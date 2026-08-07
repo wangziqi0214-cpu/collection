@@ -23,10 +23,14 @@ def parse_entries(md_text):
             ln = ln.strip()
             if ln.startswith("> 来源：") or ln.startswith("> 来源:"):
                 src = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
-            elif ln.startswith("> 链接：") or ln.startswith("> 链接:") or ln.startswith("> GitHub:") or ln.startswith("> GitHub："):
-                link = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
+            elif ln.startswith("> 链接") or ln.startswith("> GitHub"):
+                # 提取冒号后的完整内容(兼容全角/半角冒号)
+                m2 = re.match(r">\s*(?:链接|GitHub)[：:]\s*(.+)", ln)
+                link = m2.group(1).strip() if m2 else ln.split(":", 1)[-1].strip()
                 if not link.startswith("http"):
                     link = "https://" + link
+                # 清理多余斜杠: https:////xxx -> https://xxx
+                link = re.sub(r"^https?:///+", "https://", link)
             elif ln.startswith(">"):
                 desc = ln[1:].strip()
         entries.append({"date": date, "title": title, "src": src, "link": link, "desc": desc})
@@ -41,7 +45,15 @@ def main():
         e["_fileDate"] = today
     data_json = json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
     template = (TEMPLATE).read_text(encoding="utf-8")
-    page = template.replace("__DATA__", data_json)
+    # 用正则替换 <script id="data"> 内容(兼容模板已被注入真数据的情况,不再依赖 __DATA__ 占位符)
+    page, n = re.subn(
+        r'(<script id="data"[^>]*>)(.*?)(</script>)',
+        lambda m: m.group(1) + data_json + m.group(3),
+        template, count=1, flags=re.S,
+    )
+    if n == 0:
+        # 兼容旧模板:替换 __DATA__ 占位符
+        page = template.replace("__DATA__", data_json)
     out = OUT_DIR / "index.html"
     out.write_text(page, encoding="utf-8")
     print(f"OK: {out} | {len(entries)} 条 | {len(page)} 字节")
