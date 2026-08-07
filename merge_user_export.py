@@ -38,6 +38,22 @@ def clean_link(link):
         link = "https://" + link
     return re.sub(r"^https?:///+", "https://", link)
 
+def norm_cat_export(v):
+    """用户导出分类归一化:数组去空 / 字符串去空白,无效返回 None"""
+    if isinstance(v, list):
+        v = [c for c in v if str(c).strip()]
+        return v if v else None
+    v = str(v or "").strip()
+    return v or None
+
+def norm_cat_set(v):
+    """分类值转排序集合,用于格式无关比较(字符串/数组统一)"""
+    if isinstance(v, list):
+        return sorted(str(c) for c in v)
+    if v:
+        return [str(v)]
+    return []
+
 def main():
     if len(sys.argv) < 2:
         print("用法: merge_user_export.py <export.json>")
@@ -56,11 +72,12 @@ def main():
     # 分类变更回写:用户导出的 category 与现存映射不同 → 更新
     cat_changed = 0
     for e in user_entries:
-        cat = (e.get("category") or "").strip()
+        cat = norm_cat_export(e.get("category"))
         if not cat:
             continue
         key = f"{e.get('date', '')}|{e.get('title', '')}"
-        if (e.get('date', ''), e.get('title', '')) in remote_keys and cats.get(key) != cat:
+        if (e.get('date', ''), e.get('title', '')) in remote_keys and \
+                norm_cat_set(cats.get(key)) != norm_cat_set(cat):
             cats[key] = cat
             cat_changed += 1
 
@@ -69,7 +86,7 @@ def main():
         key = (e.get("date", ""), e.get("title", ""))
         if key not in remote_keys:
             added.append(e)
-            cat = (e.get("category") or "").strip()
+            cat = norm_cat_export(e.get("category"))
             if cat:
                 cats[f"{key[0]}|{key[1]}"] = cat
 

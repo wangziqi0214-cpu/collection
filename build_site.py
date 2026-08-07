@@ -34,6 +34,12 @@ def load_cats():
     except Exception:
         return {}
 
+def norm_cat(v):
+    """分类值统一为数组(单标签字符串或数组都归一化)"""
+    if isinstance(v, list):
+        return v
+    return [v] if v else []
+
 def parse_entries(md_text):
     entries = []
     blocks = re.split(r"\n### ", md_text)[1:]
@@ -70,7 +76,7 @@ def main():
     today = datetime.date.today().strftime("%Y-%m-%d")
     for e in entries:
         e["_fileDate"] = today
-        e["category"] = cats.get(e["date"] + "|" + e["title"]) or infer_category(e)
+        e["category"] = norm_cat(cats.get(e["date"] + "|" + e["title"]) or infer_category(e))
     data_json = json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
     template = (TEMPLATE).read_text(encoding="utf-8")
     # 用正则替换 <script id="data"> 内容(兼容模板已被注入真数据的情况,不再依赖 __DATA__ 占位符)
@@ -83,6 +89,7 @@ def main():
         # 兼容旧模板:替换 __DATA__ 占位符
         page = template.replace("__DATA__", data_json)
     out = OUT_DIR / "index.html"
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
     out.write_text(page, encoding="utf-8")
     print(f"OK: {out} | {len(entries)} 条 | {len(page)} 字节")
 
