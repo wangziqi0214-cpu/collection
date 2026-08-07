@@ -6,7 +6,33 @@ import re, sys, json, datetime, pathlib
 
 SRC = pathlib.Path.home() / "Documents/收藏/收藏链接.md"
 TEMPLATE = pathlib.Path(__file__).parent / "index.html"
+CATS_FILE = pathlib.Path(__file__).parent / "categories.json"
 OUT_DIR = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path("/tmp/collection_site")
+
+# 新条目(无人工分类)的规则兜底
+def infer_category(e):
+    t = (e["title"] + " " + e["desc"]).lower()
+    if "skill" in t or "skills" in t:
+        return "skill"
+    if any(k in t for k in ["教程", "课程", "指南", "电子书", "微课", "workshop", "手册", "蓝皮书"]):
+        return "tutorial"
+    if any(k in t for k in ["羊毛", "技巧", "省钱", "提示词", "最佳实践", "经验", "避坑", "方法"]):
+        return "tips"
+    if any(k in t for k in ["转行", "简历", "面试", "求职", "副业", "赚钱", "产品经理", "职场", "岗位"]):
+        return "career"
+    if any(k in t for k in ["观点", "泡沫", "趋势", "判断", "认知", "思考"]):
+        return "insight"
+    if any(k in t for k in ["人生", "减肥", "健康", "心态", "习惯"]):
+        return "life"
+    if any(k in t for k in ["处世", "原则", "智慧", "格局"]):
+        return "wisdom"
+    return "misc"
+
+def load_cats():
+    try:
+        return json.loads(CATS_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
 def parse_entries(md_text):
     entries = []
@@ -40,9 +66,11 @@ def parse_entries(md_text):
 def main():
     md_text = SRC.read_text(encoding="utf-8")
     entries = parse_entries(md_text)
+    cats = load_cats()
     today = datetime.date.today().strftime("%Y-%m-%d")
     for e in entries:
         e["_fileDate"] = today
+        e["category"] = cats.get(e["date"] + "|" + e["title"]) or infer_category(e)
     data_json = json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
     template = (TEMPLATE).read_text(encoding="utf-8")
     # 用正则替换 <script id="data"> 内容(兼容模板已被注入真数据的情况,不再依赖 __DATA__ 占位符)
