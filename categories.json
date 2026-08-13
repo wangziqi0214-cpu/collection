@@ -318,5 +318,7 @@
   "2026-08-12|『所有的无用，都是有用的』（微信公众号文章）": "insight",
   "2026-08-13|GoodCase.ai：封装3年实测经验的AI提示词案例网站（公众号 卡尔&阿汤）": "tools",
   "2026-08-13|Kronos：首个开源金融 K 线基础模型（GitHub @shiyu-coder）": "tools",
-  "2026-08-13|MediaCrawler：多平台自媒体爬虫（小红书/抖音/快手/B站/微博/贴吧/知乎）": "tools"
+  "2026-08-13|MediaCrawler：多平台自媒体爬虫（小红书/抖音/快手/B站/微博/贴吧/知乎）": "tools",
+  "2026-08-13|mattpocock/skills：Matt Pocock 的工程师实战 Skills 仓库（GitHub）": "skill",
+  "2026-08-13|needle：14MB 微型基础模型，跑在手机/穿戴/智能家居/机器人上（GitHub @cactus-compute）": "tools"
 }
