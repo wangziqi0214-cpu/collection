@@ -311,5 +311,6 @@
   "2026-08-13|微博 @张岱樾：直接从顶级公司免费学习 AI（10 个官方免费平台）": "tutorial",
   "2026-08-13|ai-website-cloner-template：Claude 直接复制任何网站界面（微博 @张岱樾）": "tools",
   "2026-08-13|Skill Recorder：微软开源、把操作录制成 Agent Skill（微博 @摇摆时间线ZHLMI）": "tools",
-  "2026-08-13|字节跳动公开 Seedance 2.5 / Seedream 5.0 Pro 导演级分镜文档（微博 @爱可可-爱生活）": "tutorial"
+  "2026-08-13|字节跳动公开 Seedance 2.5 / Seedream 5.0 Pro 导演级分镜文档（微博 @爱可可-爱生活）": "tutorial",
+  "2026-08-13|codex-host：让 Pi 模型在 Codex Desktop GUI 上运行的插件（GitHub @BytePioneer-AI）": "tools"
 }
