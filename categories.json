@@ -328,5 +328,6 @@
   "2026-08-13|李楠或kkk：Vibe Coding 之后，仍要懂软件工程的三个阶段（计划→迭代→AI辅助/代理）": "insight",
   "2026-08-13|AIGC·非著名程序员：LLM 写代码的 bug 变了——简单错误消失、复杂问题浮现": "insight",
   "2026-08-13|LabEx：摒弃视频课的交互式技术实验室（Linux/DevOps/网络安全）": "tools",
-  "2026-08-13|Hello-Agents：《从零开始构建智能体》系统教程（Datawhale，GitHub 72.8k star）": "tutorial"
+  "2026-08-13|Hello-Agents：《从零开始构建智能体》系统教程（Datawhale，GitHub 72.8k star）": "tutorial",
+  "2026-08-13|AI Agent 架构：从单体到企业级多智能体（Wayland Zhang，在线阅读）": "tutorial"
 }
