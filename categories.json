@@ -330,5 +330,8 @@
   "2026-08-13|LabEx：摒弃视频课的交互式技术实验室（Linux/DevOps/网络安全）": "tools",
   "2026-08-13|Hello-Agents：《从零开始构建智能体》系统教程（Datawhale，GitHub 72.8k star）": "tutorial",
   "2026-08-13|AI Agent 架构：从单体到企业级多智能体（Wayland Zhang，在线阅读）": "tutorial",
-  "2026-08-13|Vibe Coding 后端新手选型：商用项目无脑先上 BaaS，再反向学底层（干货笔记）": "tips"
+  "2026-08-13|Vibe Coding 后端新手选型：商用项目无脑先上 BaaS，再反向学底层（干货笔记）": "tips",
+  "2026-08-15|diagram-design：终结AI生成的“廉价感”架构图（Claude Code 插件，repo: cathrynlavery/diagram-design）": [
+    "tools"
+  ]
 }
