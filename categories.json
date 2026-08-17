@@ -350,5 +350,8 @@
   "2026-08-16|Recordly：开源的录屏工具，自动强调操作重点做演示视频（微博 @蚁工厂）": "tools",
   "2026-08-16|Android 版 MCP 正式登场：Google AppFunctions 详解（公众号 Carson带你学Android）": "tools",
   "2026-08-17|一个 pi 插件让我怒省 200 刀：模仿 dsh-anchored-standard 给 DeepSeek V4 Flash 首轮注入（小红书 イレヴァ）": "tools",
-  "2026-08-17|神奇！从 15.7GB 降到约 5GB：ComfyUI-ClipProj 换小文本编码器跑 MiniMax-H3（公众号 JimmyMo）": "tips"
+  "2026-08-17|神奇！从 15.7GB 降到约 5GB：ComfyUI-ClipProj 换小文本编码器跑 MiniMax-H3（公众号 JimmyMo）": "tips",
+  "2026-08-18|大厂认可的 Agent 项目 7 个升级方向：MCP/RAG/Function Calling ≠ 完整 Agent，Demo 升级简历硬通货（视频总结）": [
+    "career"
+  ]
 }
