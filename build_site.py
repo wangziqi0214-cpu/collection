@@ -55,14 +55,16 @@ def parse_entries(md_text):
             ln = ln.strip()
             if ln.startswith("> 来源：") or ln.startswith("> 来源:"):
                 src = ln.split("：", 1)[-1].split(":", 1)[-1].strip()
-            elif ln.startswith("> 链接") or ln.startswith("> GitHub"):
-                # 提取冒号后的完整内容(兼容全角/半角冒号)
-                m2 = re.match(r">\s*(?:链接|GitHub)[：:]\s*(.+)", ln)
+            elif re.match(r">\s*(?:链接\d*|GitHub)[：:]\s*", ln):
+                # 提取冒号后的完整内容(兼容全角/半角冒号、链接2/链接3 等次链接)
+                m2 = re.match(r">\s*(?:链接\d*|GitHub)[：:]\s*(.+)", ln)
                 link = m2.group(1).strip() if m2 else ln.split(":", 1)[-1].strip()
+                # 去掉行尾全角括号注释(如（微博分享页）（08-18 合并…）)，避免混进 URL
+                link = re.sub(r"（[^）]*）\s*$", "", link).strip()
                 if not link.startswith("http"):
                     link = "https://" + link
                 # 清理多余斜杠: https:////xxx -> https://xxx
-                link = re.sub(r"^https?:///+", "https://", link)
+                link = re.sub(r"^https?:///+\s*", "https://", link).strip()
             elif ln.startswith(">"):
                 desc = ln[1:].strip()
         entries.append({"date": date, "title": title, "src": src, "link": link, "desc": desc})
