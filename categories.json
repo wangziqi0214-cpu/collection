@@ -368,5 +368,8 @@
   ],
   "2026-08-18|Base UI：GameCrafters 设计系统的 React 实现，自带 MCP server 的组件库（GitHub）": [
     "tools"
+  ],
+  "2026-08-18|dsh-anchored-standard：DeepSeek Harness 锚定式 agent 预设（Minimal 轨迹锚定 + durable 后升级 Standard 工具集，GitHub）": [
+    "tools"
   ]
 }
