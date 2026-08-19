@@ -389,5 +389,17 @@
   ],
   "2026-08-19|分享一个解决 Google IP 送中的方法：WARP 分流 + IPv6 出口（LINUX DO）": [
     "tips"
+  ],
+  "2026-08-19|社招转行评论区干货：10 年招聘 HR 的三条建议——内推/作品/长跑（无链接）": [
+    "career"
+  ],
+  "2026-08-19|转行 AI Agent 3 个月路线 + 大模型应用架构三层拆解：提示词工程/Function Calling/RAG（无链接）": [
+    "tutorial"
+  ],
+  "2026-08-19|小红书大模型开源：dots3-note preview API 限时免费（小红书 dots studio）": [
+    "tools"
+  ],
+  "2026-08-19|一个可以免费用到 A（Anthropic）和 O（OpenAI）家模型的 agent（小红书 悟空是舔狗）": [
+    "tools"
   ]
 }
