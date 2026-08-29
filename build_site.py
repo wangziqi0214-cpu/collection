@@ -50,7 +50,7 @@ def parse_entries(md_text):
         if not m:
             continue
         date, title = m.group(1), m.group(2)
-        src, link, desc = "", "", ""
+        src, link, desc_lines = "", "", []
         for ln in lines[1:]:
             ln = ln.strip()
             if ln.startswith("> 来源：") or ln.startswith("> 来源:"):
@@ -66,7 +66,8 @@ def parse_entries(md_text):
                 # 清理多余斜杠: https:////xxx -> https://xxx
                 link = re.sub(r"^https?:///+\s*", "https://", link).strip()
             elif ln.startswith(">"):
-                desc = ln[1:].strip()
+                desc_lines.append(ln[1:].strip())
+        desc = "\n".join(desc_lines)
         entries.append({"date": date, "title": title, "src": src, "link": link, "desc": desc})
     entries.sort(key=lambda e: e["date"], reverse=True)
     return entries
