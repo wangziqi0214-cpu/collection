@@ -88,6 +88,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:rgba(15,17,21,.96);padd
   <div class="meta"><span>共 <b id="count">0</b> 条</span><span id="updated"></span></div>
   <div class="tabbar">
     <button id="tab-view" class="on" onclick="switchTab('view')">👀 浏览</button>
+    <button id="tab-random" onclick="switchTab('random')">🎲 随机</button>
     <button id="tab-manage" onclick="switchTab('manage')">✏️ 管理</button>
   </div>
 </header>
@@ -99,6 +100,14 @@ footer{position:fixed;bottom:0;left:0;right:0;background:rgba(15,17,21,.96);padd
   <div class="catbar" id="catbar"></div>
   <div class="toolbar" id="filters"></div>
   <div class="list" id="list"></div>
+</main>
+
+<main id="random-pane" class="hidden">
+  <div class="toolbar">
+    <button class="btn" onclick="renderRandom()">🎲 换一批</button>
+    <span style="font-size:12px;color:var(--sub);display:flex;align-items:center" id="random-count"></span>
+  </div>
+  <div class="list" id="random-list"></div>
 </main>
 
 <main id="manage-pane" class="hidden">
@@ -256,10 +265,24 @@ function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,
 
 function switchTab(t){
   document.getElementById('tab-view').className = t==='view' ? 'on' : '';
+  document.getElementById('tab-random').className = t==='random' ? 'on' : '';
   document.getElementById('tab-manage').className = t==='manage' ? 'on' : '';
   document.getElementById('view-pane').classList.toggle('hidden', t!=='view');
+  document.getElementById('random-pane').classList.toggle('hidden', t!=='random');
   document.getElementById('manage-pane').classList.toggle('hidden', t!=='manage');
   if(t==='manage') render();
+  if(t==='random') renderRandom();
+}
+function renderRandom(){
+  const pool = entries.filter(e => !e._del);
+  const list = document.getElementById('random-list');
+  const cnt = document.getElementById('random-count');
+  if(!pool.length){ list.innerHTML = '<div class="empty">还没有收藏内容</div>'; cnt.textContent = ''; return; }
+  const n = Math.min(10, pool.length);
+  const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+  const picked = shuffled.slice(0, n);
+  list.innerHTML = picked.map(cardHTML).join('');
+  cnt.textContent = '从 ' + pool.length + ' 条中随机 ' + n + ' 条';
 }
 function openAdd(){
   document.getElementById('modal-title').textContent = '新增收藏';
