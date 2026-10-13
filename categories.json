@@ -403,5 +403,21 @@
     "tools"
   ],
   "2026-08-20|天道智能体 · Way of Heaven Agent：零框架手写 RAG 与工具循环的开源学习实践场（GitHub）": "tools",
-  "2026-08-22|社招Agent岗位面试经验：516次投递/20场面试/三轮面经/一周入职感受": "career"
+  "2026-08-22|社招Agent岗位面试经验：516次投递/20场面试/三轮面经/一周入职感受": "career",
+  "2026-10-12|50 元 ESP32 小板让 AI 直接控制 iPhone（小红书 @袁老板讲黑客松）": [
+    "tools"
+  ],
+  "2026-10-11|agentusecases.ai：1040+ 案例的 AI 用例库（直接抄作业）": [
+    "tools"
+  ],
+  "2026-10-11|Chasen《Agent 工程师入门指南》学习路线整理": [
+    "tutorial"
+  ],
+  "2026-10-11|ai-job-search：4.5 万星的求职 Agent 工作流（附国内 Boss 直聘重构版）": [
+    "career",
+    "tools"
+  ],
+  "2026-10-11|REA：让 Coding Agent 逆向工程任何软件（HN + GitHub Trending 登顶）": [
+    "tools"
+  ]
 }
